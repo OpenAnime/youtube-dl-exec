@@ -20,7 +20,7 @@ const getLatest = ({ assets }) => {
   return fetch(url)
 }
 
-const getBinary = async url => {
+const getBinary = async (url) => {
   let response = await fetch(url)
   if (response.headers.get('content-type') !== 'application/octet-stream') {
     response = await getLatest(await response.json())
