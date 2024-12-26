@@ -6,6 +6,8 @@ const path = require('path')
 const PLATFORM_WIN = 'win32'
 const PLATFORM_UNIX = 'unix'
 
+const IS_MACOS = process.platform === 'darwin'
+
 function get (key) {
   if (!key) return undefined
   return (
@@ -32,7 +34,9 @@ const YOUTUBE_DL_FILENAME = get('YOUTUBE_DL_FILENAME') || 'yt-dlp'
 const YOUTUBE_DL_FILE =
   !YOUTUBE_DL_FILENAME.endsWith('.exe') && YOUTUBE_DL_PLATFORM === 'win32'
     ? `${YOUTUBE_DL_FILENAME}.exe`
-    : YOUTUBE_DL_FILENAME
+    : IS_MACOS
+      ? `${YOUTUBE_DL_FILENAME}_macos`
+      : `${YOUTUBE_DL_FILENAME}_linux`
 
 const YOUTUBE_DL_PATH = path.join(YOUTUBE_DL_DIR, YOUTUBE_DL_FILE)
 
